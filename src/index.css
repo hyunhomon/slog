@@ -1,14 +1,18 @@
-html, body {
-  height: 100vh;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 @font-face {
-  font-family: regular;
+  font-family: 'regular';
   src: url('./assets/fonts/Pretendard-Regular.ttf') format('truetype');
 }
 @font-face {
-  font-family: medium;
+  font-family: 'medium';
   src: url('./assets/fonts/Pretendard-Medium.ttf') format('truetype');
+}
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  display: none;
 }
