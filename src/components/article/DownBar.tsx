@@ -9,10 +9,14 @@ const DownBarContainer = styled.div`
     justify-content: center;
 `;
 
-const DownBar = () => {
+interface DownBarProps {
+    setNextArticle: () => void
+};
+
+const DownBar = ({ setNextArticle }: DownBarProps) => {
     return (
         <DownBarContainer>
-            <ImageButton src="down" size={24} onclick={() => {}} />
+            <ImageButton src="down" size={24} onclick={ setNextArticle } />
         </DownBarContainer>
     );
 };

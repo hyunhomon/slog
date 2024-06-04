@@ -1,5 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Colors from "../../consts/colors";
+import Colors from "../../consts/Colors";
 import TextView from "../common/TextView";
 import ImageButton from "../common/ImageButton";
 
@@ -26,17 +27,30 @@ const InteractionContainer = styled.div`
     gap: 12px;
 `;
 
-const BottomBar = () => {
+interface BottomBarProps {
+    slideAmount: number | undefined,
+    currentSlide: number,
+    like: boolean | undefined,
+    setPrevSlide: () => void,
+    setNextSlide: () => void,
+    setLike: () => void
+}
+
+const BottomBar = ({
+    slideAmount, currentSlide, like, setPrevSlide, setNextSlide, setLike
+}: BottomBarProps) => {
+    const navigate = useNavigate();
+
     return (
         <BottomBarContainer>
             <PageContainer>
-                <ImageButton src="prev" size={20} onclick={() => {}} />
-                <TextView text="1 / 20" font="regular" size={16} color={Colors.Black} />
-                <ImageButton src="next" size={20} onclick={() => {}} />
+                <ImageButton src="prev" size={20} onclick={ setPrevSlide } />
+                <TextView text={`${currentSlide} / ${slideAmount}`} font="regular" size={16} color={Colors.Black} />
+                <ImageButton src="next" size={20} onclick={ setNextSlide } />
             </PageContainer>
             <InteractionContainer>
-                <ImageButton src="like-inactive" size={28} onclick={() => {}} />
-                <ImageButton src="comment" size={28} onclick={() => {}} />
+                <ImageButton src={like === true ? "like-active" : "like-inactive"} size={28} onclick={ setLike } />
+                <ImageButton src="comment" size={28} onclick={ () => { navigate("/comment") } } />
                 <ImageButton src="share" size={28} onclick={() => {}} />
             </InteractionContainer>
         </BottomBarContainer>

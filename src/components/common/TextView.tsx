@@ -1,4 +1,4 @@
-import Colors from "../../consts/colors";
+import Colors from "../../consts/Colors";
 
 interface TextViewProps {
     text: string,
