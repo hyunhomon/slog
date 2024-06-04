@@ -37,4 +37,9 @@ const TopBar = () => {
     );
 };
 
+// todo:
+// 1. user container click
+// 2. imageview, textview real value
+// 3. imageview render, alt image
+
 export default TopBar;
