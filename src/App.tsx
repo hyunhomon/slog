@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 
 const AppContainer = styled.div`
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 `;
 
 const App = () => {
