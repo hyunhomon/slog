@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ImageButton from "../common/ImageButton";
+import Colors from "../../consts/Colors";
 
 const DownBarContainer = styled.div`
     width: 100%;
@@ -7,6 +8,10 @@ const DownBarContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    background-color: ${Colors.White};
+
+    z-index: 3;
 `;
 
 interface DownBarProps {

@@ -13,7 +13,10 @@ const BottomBarContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    background-color: ${Colors.White};
     border-top: 1px solid ${Colors.Gray1};
+
+    z-index: 3;
 `;
 const PageContainer = styled.div`
     display: flex;
@@ -28,16 +31,17 @@ const InteractionContainer = styled.div`
 `;
 
 interface BottomBarProps {
-    slideAmount: number | undefined,
+    slideAmount: number,
     currentSlide: number,
-    like: boolean | undefined,
+    like: boolean,
     setPrevSlide: () => void,
     setNextSlide: () => void,
-    setLike: () => void
-}
+    setLike: () => void,
+    setShare: () => void
+};
 
 const BottomBar = ({
-    slideAmount, currentSlide, like, setPrevSlide, setNextSlide, setLike
+    slideAmount, currentSlide, like, setPrevSlide, setNextSlide, setLike, setShare
 }: BottomBarProps) => {
     const navigate = useNavigate();
 
@@ -49,9 +53,9 @@ const BottomBar = ({
                 <ImageButton src="next" size={20} onclick={ setNextSlide } />
             </PageContainer>
             <InteractionContainer>
-                <ImageButton src={like === true ? "like-active" : "like-inactive"} size={28} onclick={ setLike } />
+                <ImageButton src={like ? "like-active" : "like-inactive"} size={28} onclick={ setLike } />
                 <ImageButton src="comment" size={28} onclick={ () => { navigate("/comment") } } />
-                <ImageButton src="share" size={28} onclick={() => {}} />
+                <ImageButton src="share" size={28} onclick={ setShare } />
             </InteractionContainer>
         </BottomBarContainer>
     );

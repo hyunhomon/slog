@@ -7,9 +7,10 @@ interface ImageViewProps {
 const ImageView = ({ src, size, alt }: ImageViewProps) => {
     return (
         <img
-            src={src === undefined ? `src/assets/icons/${alt}.svg` : src}
+            src={src === undefined ? `src/assets/images/${alt}.png` : src}
             width={size}
             height={size}
+            alt={alt}
         />
     );
 };

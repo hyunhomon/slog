@@ -16,15 +16,13 @@ const TopBarContainer = styled.div`
 
     border-bottom: 1px solid ${Colors.Gray1};
 `;
-const UserContainer = styled.div`
+const UserContainer = styled.button`
     padding: 4px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-
-    cursor: pointer;
 `;
 
 interface TopBarProps {
@@ -40,7 +38,7 @@ const TopBar = ({ ownerId, ownerImg, ownerName }: TopBarProps) => {
         <TopBarContainer>
             <ImageButton src="back" size={24} onclick={() => { navigate("/") }} />
             <UserContainer onClick={() => { navigate(`/${ownerId}`) }}>
-                <ImageView src={ownerImg} size={18} alt="placeholder-profile" />
+                <ImageView src={ownerImg} size={18} alt="profile" />
                 <TextView text={ownerName} font="medium" size={16} color={Colors.Black} />
             </UserContainer>
         </TopBarContainer>

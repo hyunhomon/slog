@@ -37,6 +37,10 @@ button {
   cursor: pointer;
 }
 img {
+  margin: 0;
+  padding: 0;
+
   display: block;
-  flex: 1;
+  object-fit: contain;
+  overflow: hidden;
 }

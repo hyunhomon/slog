@@ -1,8 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import TopBar from "../components/article/TopBar";
 import BottomBar from "../components/article/BottomBar";
 import DownBar from "../components/article/DownBar";
 import SlideView from "../components/article/SlideView";
+import FloatingActionView from "../components/article/FloatingActionView";
 
 const EntireContainer = styled.div`
     width: 100%;
@@ -17,6 +19,10 @@ const ArticleContainer = styled.div`
 `;
 
 const ArticlePage = () => {
+    const [like, setLike] = useState(false);
+    const [share, setShare] = useState(false);
+    const [cut, setCut] = useState(false);
+
     return (
         <EntireContainer>
             <ArticleContainer>
@@ -30,13 +36,21 @@ const ArticlePage = () => {
                     image={undefined}
                     content="Hello World!"
                 />
+                <FloatingActionView
+                    cut={cut}
+                    setCut={() => { setCut(prev => !prev); }}
+                    share={share}
+                    setShare={() => { setShare(prev => !prev); }}
+                    url="asdf"
+                />
                 <BottomBar
                     slideAmount={20}
                     currentSlide={1}
-                    like={false}
+                    like={like}
                     setPrevSlide={() => { console.log("prev slide"); }}
                     setNextSlide={() => { console.log("next slide"); }}
-                    setLike={() => { console.log("set like"); }}
+                    setLike={() => { setLike(prev => !prev); }}
+                    setShare={() => { setShare(prev => !prev); }}
                 />
                 <DownBar
                     setNextArticle={() => { console.log("next article"); }}
