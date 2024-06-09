@@ -1,12 +1,12 @@
-interface ImageButtonProps {
+interface IconButtonProps {
     src: string,
-    size: number | string,
+    size: number,
     onclick: () => void
 };
 
-const ImageButton = ({ src, size, onclick }: ImageButtonProps) => {
+const IconButton = ({ src, size, onclick }: IconButtonProps) => {
     return (
-        <button onClick={ onclick }>
+        <button onClick={onclick}>
             <img
                 src={`src/assets/icons/${src}.svg`}
                 width={size}
@@ -17,4 +17,4 @@ const ImageButton = ({ src, size, onclick }: ImageButtonProps) => {
     );
 };
 
-export default ImageButton;
+export default IconButton;

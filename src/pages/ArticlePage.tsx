@@ -6,15 +6,10 @@ import DownBar from "../components/article/DownBar";
 import SlideView from "../components/article/SlideView";
 import FloatingActionView from "../components/article/FloatingActionView";
 
-const EntireContainer = styled.div`
-    width: 100%;
-    height: 100%;
-`;
-const ArticleContainer = styled.div`
+const ArticlePageContainer = styled.div`
     width: 100%;
     height: 100%;
 
-    display: flex;
     flex-direction: column;
 `;
 
@@ -24,39 +19,38 @@ const ArticlePage = () => {
     const [cut, setCut] = useState(false);
 
     return (
-        <EntireContainer>
-            <ArticleContainer>
-                <TopBar
-                    ownerId="user"
-                    ownerImg={undefined}
-                    ownerName="작성자"
-                />
-                <SlideView
-                    title={undefined}
-                    image={undefined}
-                    content="Hello World!"
-                />
-                <FloatingActionView
-                    cut={cut}
-                    setCut={() => { setCut(prev => !prev); }}
-                    share={share}
-                    setShare={() => { setShare(prev => !prev); }}
-                    url="asdf"
-                />
-                <BottomBar
-                    slideAmount={20}
-                    currentSlide={1}
-                    like={like}
-                    setPrevSlide={() => { console.log("prev slide"); }}
-                    setNextSlide={() => { console.log("next slide"); }}
-                    setLike={() => { setLike(prev => !prev); }}
-                    setShare={() => { setShare(prev => !prev); }}
-                />
-                <DownBar
-                    setNextArticle={() => { console.log("next article"); }}
-                />
-            </ArticleContainer>
-        </EntireContainer>
+        <ArticlePageContainer>
+            <TopBar
+                ownerId={undefined}
+                ownerImg={undefined}
+                ownerName={undefined}
+            />
+            <SlideView
+                title={undefined}
+                image={[undefined, undefined, undefined]}
+                content={[undefined, undefined, undefined]}
+                cut={cut}
+            />
+            <FloatingActionView
+                url="current page url"
+                cut={cut}
+                share={share}
+                setCut={() => setCut(prev => !prev)}
+                setShare={() => setShare(prev => !prev)}
+            />
+            <BottomBar
+                page={undefined}
+                like={like}
+                setPrevSlide={() => console.log("prev slide")}
+                setNextSlide={() => console.log("next slide")}
+                setLike={() => setLike(prev => !prev)}
+                setComment={() => console.log("set comment page")}
+                setShare={() => setShare(prev => !prev)}
+            />
+            <DownBar
+                setNextArticle={() => console.log("next article")}
+            />
+        </ArticlePageContainer>
     );
 };
 

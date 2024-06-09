@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import ImageButton from "../common/ImageButton";
 import Colors from "../../consts/Colors";
+import IconButton from "../common/IconButton";
 
 const DownBarContainer = styled.div`
     width: 100%;
 
-    display: flex;
     flex-direction: row;
     justify-content: center;
 
@@ -21,7 +20,7 @@ interface DownBarProps {
 const DownBar = ({ setNextArticle }: DownBarProps) => {
     return (
         <DownBarContainer>
-            <ImageButton src="down" size={24} onclick={ setNextArticle } />
+            <IconButton src="down" size={24} onclick={setNextArticle} />
         </DownBarContainer>
     );
 };

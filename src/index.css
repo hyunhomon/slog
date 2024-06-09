@@ -7,6 +7,15 @@
   src: url('./assets/fonts/Pretendard-Medium.ttf') format('truetype');
 }
 
+@keyframes skeleton-animation {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
 html, body {
   width: 100vw;
   height: 100vh;
@@ -22,14 +31,18 @@ html, body {
 
 div {
   margin: 0;
+  box-sizing: border-box;
+
   display: flex;
   flex-wrap: nowrap;
-  box-sizing: border-box;
 }
 button {
   margin: 0;
   padding: 4px;
   box-sizing: border-box;
+
+  display: flex;
+  flex-wrap: nowrap;
 
   background-color: transparent;
   border: none;
@@ -41,6 +54,5 @@ img {
   padding: 0;
 
   display: block;
-  object-fit: contain;
   overflow: hidden;
 }
