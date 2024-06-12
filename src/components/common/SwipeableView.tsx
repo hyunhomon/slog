@@ -1,11 +1,9 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
-const SwipeableViewContainer = styled.div<{$dir: boolean}>`
+const SwipeableViewContainer = styled.div`
     width: 100%;
     height: 100%;
-
-    flex-direction: ${props => props.$dir ? "row" : "column"};
     overflow: hidden;
 `;
 const SwipeableViewWrapper = styled.div<{$dir: boolean, $translate: number}>`
@@ -22,29 +20,30 @@ interface SwipeableViewProps {
     children: React.ReactNode,
     index: number,
     setIndex: (index: number) => void,
-    direction?: 'horizontal' | 'vertical'
+    direction?: 'horizontal' | 'vertical',
+    stopPropagation?: boolean
 };
 
-const SwipeableView = ({ children, index, setIndex, direction = "horizontal" }: SwipeableViewProps) => {
+const SwipeableView = ({ children, index, setIndex, direction = "horizontal", stopPropagation = true }: SwipeableViewProps) => {
     const [start, setStart] = useState(0);
     const [current, setCurrent] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const dir = direction === "horizontal";
-    const translateContainer = (current >= 60 ? (index + (current / (containerRef.current?.[dir ? "clientWidth" : "clientHeight"] || 1))) : index) * 100;
+    const translate = (Math.abs(current) > 60 ? (index + (current / (containerRef.current?.[dir ? "clientWidth" : "clientHeight"] || 1))) : index) * 100;
 
     const handleTouchStart = (e: React.TouchEvent) => {
-        e.stopPropagation();
+        if(stopPropagation) e.stopPropagation();
         setStart(dir ? e.touches[0].clientX : e.touches[0].clientY);
         setIsDragging(true);
     };
     const handleTouchMove = (e: React.TouchEvent) => {
-        e.stopPropagation();
+        if(stopPropagation) e.stopPropagation();
         if (!isDragging) return;
         setCurrent(start - (dir ? e.touches[0].clientX : e.touches[0].clientY));
     };
     const handleTouchEnd = (e: React.TouchEvent) => {
-        e.stopPropagation();
+        if(stopPropagation) e.stopPropagation();
         setIsDragging(false);
         const swipeThreshold = 100;
         if (current < -swipeThreshold && index > 0) setIndex(index - 1);
@@ -54,14 +53,13 @@ const SwipeableView = ({ children, index, setIndex, direction = "horizontal" }: 
 
     return (
         <SwipeableViewContainer
-            $dir={dir}
             ref={containerRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
-            <SwipeableViewWrapper $dir={dir} $translate={translateContainer}>
-                {React.Children.map(children, (child, idx) => (
+            <SwipeableViewWrapper $dir={dir} $translate={translate}>
+                { React.Children.map(children, (child, idx) => (
                     <div key={idx} style={{ flex: "1 0 100%" }}>
                         {child}
                     </div>
