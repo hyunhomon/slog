@@ -9,13 +9,18 @@ interface TextLoadingViewProps {
     length?: number
 };
 
-const TextLoadingView = ({ text, font, size, color, length = 8 }: TextLoadingViewProps) => {
+const TextLoadingView = ({
+    text, font, size, color, length = 8
+}: TextLoadingViewProps) => {
     const style = {
         fontFamily: font,
         fontSize: size,
         color: color,
         letterSpacing: 0.8,
-        lineHeight: 1.2
+        lineHeight: 1.2,
+        wordBreak: "keep-all" as "keep-all",
+        overflowWrap: "anywhere" as "anywhere",
+        whiteSpace: "pre-wrap"
     };
 
     return (
