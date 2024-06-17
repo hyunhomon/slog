@@ -29,7 +29,7 @@ interface Slide {
 };
 
 const ArticlePage = () => {
-    const [articleList, setArticleList] = useState<string[]>();
+    const [articleList, setArticleList] = useState<string[]>([]);
     const [articleIndex, setArticleIndex] = useState(0);
     const [articleState, setArticleState] = useState<'prev' | 'none' | 'next'>("none");
     const [owner, setOwner] = useState<Owner>();
@@ -43,11 +43,13 @@ const ArticlePage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    let lastKeyPressTime = 0;
-
     useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown);
+        // navigate("/article", { state: { data: array } });
+        // array should be string[]
+        if(location.state?.data) setArticleList(location.state?.data);
+        else console.log("data not found"); // todo: article id req
 
+        // todo: article req
         setOwner({ ownerId: "id", ownerImg: undefined, ownerName: "name" });
         setTitle("Title");
         setSlideList([
@@ -55,41 +57,45 @@ const ArticlePage = () => {
             { image: undefined, content: "Slide#2" },
             { image: undefined, content: "Slide#3" }
         ]);
-
-        return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
     useEffect(() => {
+        let lastKeyPressTime = 0;
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const now = Date.now();
+            if (now - lastKeyPressTime <= 400) return;
+            lastKeyPressTime = now;
+    
+            switch(event.key) {
+                case "ArrowLeft":
+                    setSlideIndex(prev => (prev - 1 + slideList.length) % slideList.length);
+                    break;
+                case "ArrowRight":
+                    setSlideIndex(prev => (prev + 1) % slideList.length);
+                    break;
+                case "ArrowUp":
+                    setArticleState("prev");
+                    break;
+                case "ArrowDown":
+                    setArticleState("next");
+                    break;
+                case " ":
+                    setCut(prev => !prev);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [slideList]);
+    useEffect(() => {
         if(articleState !== "none") {
-            articleState === "prev" ? setArticleIndex(prev => prev - 1) : setArticleIndex(prev => prev + 1);
+            setArticleIndex(prev => articleState === "prev" ? prev - 1 : prev + 1);
             setArticleState("none");
         }
-    }, [articleState])
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-        const now = Date.now();
-        if (now - lastKeyPressTime <= 400) return;
-        lastKeyPressTime = now;
-
-        switch(event.key) {
-            case "ArrowLeft":
-                setSlideIndex(prev => (prev - 1 + slideList.length) % slideList.length);
-                break;
-            case "ArrowRight":
-                setSlideIndex(prev => (prev + 1) % slideList.length);
-                break;
-            case "ArrowUp":
-                setArticleState("prev");
-                break;
-            case "ArrowDown":
-                setArticleState("next");
-                break;
-            case " ":
-                setCut(prev => !prev);
-                break;
-            default:
-                break;
-        }
-    }
+    }, [articleState]);
 
     return (
         <InfiniteSwipeableView

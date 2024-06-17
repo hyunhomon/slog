@@ -33,7 +33,7 @@ const TopBar = ({ ownerId, ownerImg, ownerName }: TopBarProps) => {
     return (
         <TopBarContainer>
             <IconButton src="back" size={24} onclick={() => navigate("/")} />
-            <UserContainer onClick={() => navigate(`/${ownerId}`)}>
+            <UserContainer onClick={() => navigate(`/${ownerId}`)} tabIndex={-1}>
                 <CircleImageLoadingView src={ownerImg} size={20} objectFit="cover" alt="profile" />
                 <TextLoadingView text={ownerName} font="medium" size={16} color={Colors.Black} />
             </UserContainer>
